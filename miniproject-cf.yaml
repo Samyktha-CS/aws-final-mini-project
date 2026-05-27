@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS Infrastructure Automation - EC2, S3, RDS
+
+Resources:
+
+  MyS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'week4-mini-${AWS::AccountId}'
+
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t3.micro
+      ImageId: ami-0685bcc683dadb6b9
+      Tags:
+        - Key: Name
+          Value: MiniProject-EC2
+
+  MyRDSInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceIdentifier: miniproject-rds
+      DBInstanceClass: db.t3.micro
+      Engine: mysql
+      MasterUsername: admin
+      MasterUserPassword: Admin1234!
+      AllocatedStorage: '20'
+      PubliclyAccessible: false
+      DeleteAutomatedBackups: true
